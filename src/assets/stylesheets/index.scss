@@ -1,2 +1,8 @@
 // Dependencies
-@import 'vendors/tailwind.css';
+@import 'vendors/_tailwind.css';
+
+// Base
+@import 'base/_layouts.scss';
+
+// Screens
+@import 'screens/_login.scss';
