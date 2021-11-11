@@ -6,7 +6,13 @@ import SubmitHandler from './handler';
 
 const ATM = (): JSX.Element => {
   const { currentBalance } = useAppSelector((state) => state.user);
-  const { hasError, errorMessage, handleSubmit } = SubmitHandler(currentBalance);
+  const { 
+    hasError,
+    errorMessage,
+    hasWarning,
+    warningMessage,
+    handleSubmit 
+  } = SubmitHandler(currentBalance);
 
   return (
     <div className="atm-screen page-bg">
@@ -15,6 +21,8 @@ const ATM = (): JSX.Element => {
         <WithdrawForm
           hasError={hasError}
           errorMessage={errorMessage}
+          hasWarning={hasWarning}
+          warningMessage={warningMessage}
           handleSubmit={handleSubmit}
         />
       </main>

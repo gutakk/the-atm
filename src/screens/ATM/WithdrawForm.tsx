@@ -3,10 +3,18 @@ import React, { useState } from 'react';
 type WithdrawFormProps = {
   hasError: boolean;
   errorMessage: string;
+  hasWarning: boolean;
+  warningMessage: string;
   handleSubmit: (withdrawAmount: number) => void;
 };
 
-const WithdrawForm = ({ hasError, errorMessage, handleSubmit }: WithdrawFormProps): JSX.Element => {
+const WithdrawForm = ({
+  hasError,
+  errorMessage,
+  hasWarning,
+  warningMessage,
+  handleSubmit,
+}: WithdrawFormProps): JSX.Element => {
   const [withdrawAmount, setWithdrawAmount] = useState<number>(0);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,6 +30,7 @@ const WithdrawForm = ({ hasError, errorMessage, handleSubmit }: WithdrawFormProp
   return (
     <div className="withdraw-form">
       {hasError && <p>{errorMessage}</p>}
+      {hasWarning && <p>{warningMessage}</p>}
       <input
         className="withdraw-form__input"
         type="number"
