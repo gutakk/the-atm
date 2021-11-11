@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PinInput from '../../components/PinInput';
+import PinInput from './PinInput';
 import SubmitHandler from './handler';
 
 const Login = (): JSX.Element => {
