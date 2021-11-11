@@ -1,3 +1,20 @@
 .atm-screen {
   @apply flex justify-center items-center;
+
+  .withdraw-form {
+    &__input {
+      @apply shadow rounded p-2;
+      -moz-appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+
+    &__button {
+      @apply block bg-yellow-400 hover:bg-yellow-300 py-2 px-4 rounded w-full mt-3;
+    }
+  }
 }
