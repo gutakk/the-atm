@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type PinInputProps = {
   isValidatingPin: boolean,
@@ -24,9 +26,10 @@ const PinInput = ({ isValidatingPin, hasError, verifyPinAndStoreBalance }: PinIn
   }, [pin]);
 
   return (
-    <div>
+    <div className="pin-form">
+      {isValidatingPin && <FontAwesomeIcon className="pin-form__spinner" icon={faCircleNotch} spin />}
       <input
-        className="pin-input"
+        className="pin-form__input"
         type="password"
         maxLength={4}
         size={4}
@@ -34,7 +37,6 @@ const PinInput = ({ isValidatingPin, hasError, verifyPinAndStoreBalance }: PinIn
         value={pin}
         disabled={isValidatingPin}
       />
-      {isValidatingPin && <p>Loading</p>}
       {hasError && <p>Invalid PIN</p>}
     </div>
   );

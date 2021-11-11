@@ -1,3 +1,15 @@
-.pin-input {
-  @apply text-center text-5xl shadow rounded-xl px-10 py-5;
+.pin-form {
+  &__input {
+    @apply relative text-center text-5xl shadow rounded-xl px-10 py-5;
+
+    &:disabled {
+      @apply bg-white;
+    }
+  }
+
+  &__spinner {
+    @apply absolute text-5xl text-yellow-400 z-10;
+    margin-top: 24px;
+    margin-left: 73px;
+  }
 }
