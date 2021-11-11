@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { RouteComponentProps, useHistory } from 'react-router-dom'
 
 import { verifyPinAPI } from '../../adapters/pin';
 
@@ -9,6 +10,8 @@ type SubmitHandler = {
 };
 
 const SubmitHandler = (): SubmitHandler => {
+  const history: RouteComponentProps['history'] = useHistory();
+
   const [isValidatingPin, setIsValidatingPin] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
 
@@ -18,6 +21,7 @@ const SubmitHandler = (): SubmitHandler => {
       setHasError(false);
       const { data } = await verifyPinAPI(pin);
       // TODO: Store current balance to redux store
+      history.push('/atm');
     } catch(err) {
       setHasError(true);
     }
