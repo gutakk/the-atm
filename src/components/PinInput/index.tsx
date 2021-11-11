@@ -1,32 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
-import { verifyPinAPI } from '../../adapters/pin';
+type PinInputProps = {
+  isValidatingPin: boolean,
+  hasError: boolean,
+  verifyPinAndStoreBalance: (pin: string) => void;
+};
 
-const PinInput = (): JSX.Element => {
+const PinInput = ({ isValidatingPin, hasError, verifyPinAndStoreBalance }: PinInputProps): JSX.Element => {
   const pinLength: number = 4;
   const initialPin: string = "";
 
   const [pin, setPin] = useState<string>(initialPin);
-  const [isValidatingPin, setIsValidatingPin] = useState<boolean>(false);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPin(e.target.value);
   };
 
-  const verifyPin = async(pin: string) => {
-    setPin(initialPin);
-    try {
-      setIsValidatingPin(true);
-      const { data } = await verifyPinAPI(pin);
-      // TODO: Store current balance to redux store
-    } catch(err) {
-    }
-    setIsValidatingPin(false);
-  };
-
   useEffect(() => {
     if(pin.length === pinLength) {
-      verifyPin(pin);
+      verifyPinAndStoreBalance(pin);
+      setPin(initialPin);
     }
   }, [pin]);
 
@@ -42,6 +35,7 @@ const PinInput = (): JSX.Element => {
         disabled={isValidatingPin}
       />
       {isValidatingPin && <p>Loading</p>}
+      {hasError && <p>Invalid PIN</p>}
     </div>
   );
 };
