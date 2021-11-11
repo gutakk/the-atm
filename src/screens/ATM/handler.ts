@@ -1,41 +1,55 @@
 import React, { useState } from 'react';
 
+import { useAppDispatch } from '../../hooks/useApp';
+import { currentBalance } from '../../reducers/user';
+
+
 type SubmitHandler = {
   hasError: boolean;
   errorMessage: string;
   hasWarning: boolean;
   warningMessage: string;
+  isSuccess: boolean;
   handleSubmit: (withdrawAmount: number) => void;
   validateOverdrawn: (withdrawAmount: number) => void;
 };
 
-const SubmitHandler = (currentBalance: number): SubmitHandler => {
+const SubmitHandler = (balance: number): SubmitHandler => {
+  const dispatch = useAppDispatch();
   const overdraftAmount = 100;
 
   const [hasError, setHasError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [hasWarning, setHasWarning] = useState<boolean>(false);
   const [warningMessage, setWarningMessage] = useState<string>('');
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   
   const handleSubmit = (withdrawAmount: number) => {
+    setHasWarning(false);
+
     if(isNaN(withdrawAmount)) {
+      setIsSuccess(false);
       setHasError(true);
-      setHasWarning(false);
       setErrorMessage('Please enter withdraw amount!');
       return;
     }
 
-    if(withdrawAmount > currentBalance + overdraftAmount) {
+    if(withdrawAmount > balance + overdraftAmount) {
+      setIsSuccess(false);
       setHasError(true);
-      setHasWarning(false);
       setErrorMessage('Withdraw amount exceeds current balance!');
       return;
     }
+
+    dispatch(currentBalance(balance - withdrawAmount));
+    setHasError(false);
+    setIsSuccess(true);
   };
 
   const validateOverdrawn = (withdrawAmount: number) => {
+    setIsSuccess(false);
     setHasError(false);
-    if(withdrawAmount > currentBalance) {
+    if(withdrawAmount > balance) {
       setHasWarning(true);
       setWarningMessage('Be careful! You are trying to overdrawn the balance.');
     } else {
@@ -48,6 +62,7 @@ const SubmitHandler = (currentBalance: number): SubmitHandler => {
     errorMessage,
     hasWarning,
     warningMessage,
+    isSuccess,
     handleSubmit,
     validateOverdrawn,
   }

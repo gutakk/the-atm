@@ -11,6 +11,7 @@ const ATM = (): JSX.Element => {
     errorMessage,
     hasWarning,
     warningMessage,
+    isSuccess,
     handleSubmit,
     validateOverdrawn
   } = SubmitHandler(currentBalance);
@@ -19,14 +20,10 @@ const ATM = (): JSX.Element => {
     <div className="atm-screen page-bg">
       <main className="main-content">
         <p>Balance: £{currentBalance}</p>
-        <WithdrawForm
-          hasError={hasError}
-          errorMessage={errorMessage}
-          hasWarning={hasWarning}
-          warningMessage={warningMessage}
-          handleSubmit={handleSubmit}
-          validateOverdrawn={validateOverdrawn}
-        />
+        {isSuccess && <p>Withdraw successfully</p>}
+        {hasError && <p>{errorMessage}</p>}
+        {hasWarning && <p>{warningMessage}</p>}
+        <WithdrawForm handleSubmit={handleSubmit} validateOverdrawn={validateOverdrawn} />
       </main>
     </div>
   );

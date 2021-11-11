@@ -1,22 +1,11 @@
 import React, { useState } from 'react';
 
 type WithdrawFormProps = {
-  hasError: boolean;
-  errorMessage: string;
-  hasWarning: boolean;
-  warningMessage: string;
   handleSubmit: (withdrawAmount: number) => void;
   validateOverdrawn: (withdrawAmount: number) => void;
 };
 
-const WithdrawForm = ({
-  hasError,
-  errorMessage,
-  hasWarning,
-  warningMessage,
-  handleSubmit,
-  validateOverdrawn,
-}: WithdrawFormProps): JSX.Element => {
+const WithdrawForm = ({ handleSubmit, validateOverdrawn }: WithdrawFormProps): JSX.Element => {
   const [withdrawAmount, setWithdrawAmount] = useState<number>(0);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,8 +21,6 @@ const WithdrawForm = ({
 
   return (
     <div className="withdraw-form">
-      {hasError && <p>{errorMessage}</p>}
-      {hasWarning && <p>{warningMessage}</p>}
       <input
         className="withdraw-form__input"
         type="number"
