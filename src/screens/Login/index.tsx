@@ -7,7 +7,7 @@ const Login = (): JSX.Element => {
   const { isValidatingPin, hasError, verifyPinAndStoreBalance } = SubmitHandler();
 
   return (
-    <div className="login-screen">
+    <div className="login-screen page-bg">
       <main className="main-content">
         <h1 className="main-content__app-name">the<span className="main-content__app-name--main">ATM</span></h1>
         <h3 className="main-content__greeting">Welcome Michael</h3>

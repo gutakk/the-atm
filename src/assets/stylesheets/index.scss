@@ -2,10 +2,12 @@
 @import 'vendors/_tailwind.css';
 
 // Base
+@import 'base/_background.scss';
 @import 'base/_layouts.scss';
 
 // Components
 @import 'components/pin-input';
 
 // Screens
+@import 'screens/_atm.scss';
 @import 'screens/_login.scss';
