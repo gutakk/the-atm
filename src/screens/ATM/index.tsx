@@ -11,7 +11,8 @@ const ATM = (): JSX.Element => {
     errorMessage,
     hasWarning,
     warningMessage,
-    handleSubmit 
+    handleSubmit,
+    validateOverdrawn
   } = SubmitHandler(currentBalance);
 
   return (
@@ -24,6 +25,7 @@ const ATM = (): JSX.Element => {
           hasWarning={hasWarning}
           warningMessage={warningMessage}
           handleSubmit={handleSubmit}
+          validateOverdrawn={validateOverdrawn}
         />
       </main>
     </div>

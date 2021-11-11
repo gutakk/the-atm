@@ -6,6 +6,7 @@ type WithdrawFormProps = {
   hasWarning: boolean;
   warningMessage: string;
   handleSubmit: (withdrawAmount: number) => void;
+  validateOverdrawn: (withdrawAmount: number) => void;
 };
 
 const WithdrawForm = ({
@@ -14,11 +15,13 @@ const WithdrawForm = ({
   hasWarning,
   warningMessage,
   handleSubmit,
+  validateOverdrawn,
 }: WithdrawFormProps): JSX.Element => {
   const [withdrawAmount, setWithdrawAmount] = useState<number>(0);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWithdrawAmount(parseInt(e.target.value));
+    validateOverdrawn(parseInt(e.target.value));
   };
 
   const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -38,7 +41,11 @@ const WithdrawForm = ({
         onKeyPress={(e) => handleOnKeyPress(e)}
         onChange={(e) => handleOnChange(e)}
       />
-      <button className="withdraw-form__button" onClick={() => handleSubmit(withdrawAmount)}>
+      <button
+        className="withdraw-form__button"
+        disabled={withdrawAmount <= 0 || isNaN(withdrawAmount)}
+        onClick={() => handleSubmit(withdrawAmount)}
+      >
         Withdraw
       </button>
     </div>

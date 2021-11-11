@@ -6,6 +6,7 @@ type SubmitHandler = {
   hasWarning: boolean;
   warningMessage: string;
   handleSubmit: (withdrawAmount: number) => void;
+  validateOverdrawn: (withdrawAmount: number) => void;
 };
 
 const SubmitHandler = (currentBalance: number): SubmitHandler => {
@@ -17,26 +18,38 @@ const SubmitHandler = (currentBalance: number): SubmitHandler => {
   const [warningMessage, setWarningMessage] = useState<string>('');
   
   const handleSubmit = (withdrawAmount: number) => {
+    if(isNaN(withdrawAmount)) {
+      setHasError(true);
+      setHasWarning(false);
+      setErrorMessage('Please enter withdraw amount!');
+      return;
+    }
+
     if(withdrawAmount > currentBalance + overdraftAmount) {
       setHasError(true);
       setHasWarning(false);
       setErrorMessage('Withdraw amount exceeds current balance!');
       return;
-    } 
-    
-    if(withdrawAmount > currentBalance && withdrawAmount <= currentBalance + overdraftAmount) {
-      setHasWarning(true);
-      setHasError(false);
-      setWarningMessage('Be careful! You are trying to overdrawn the balance.');
     }
   };
+
+  const validateOverdrawn = (withdrawAmount: number) => {
+    setHasError(false);
+    if(withdrawAmount > currentBalance) {
+      setHasWarning(true);
+      setWarningMessage('Be careful! You are trying to overdrawn the balance.');
+    } else {
+      setHasWarning(false);
+    }
+  }
 
   return {
     hasError,
     errorMessage,
     hasWarning,
     warningMessage,
-    handleSubmit
+    handleSubmit,
+    validateOverdrawn,
   }
 };
 
