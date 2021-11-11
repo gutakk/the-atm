@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-type PinInputProps = {
+type PinFormProps = {
   isValidatingPin: boolean,
   hasError: boolean,
   verifyPinAndStoreBalance: (pin: string) => void;
 };
 
-const PinInput = ({ isValidatingPin, hasError, verifyPinAndStoreBalance }: PinInputProps): JSX.Element => {
+const PinForm = ({ isValidatingPin, hasError, verifyPinAndStoreBalance }: PinFormProps): JSX.Element => {
   const pinLength: number = 4;
   const initialPin: string = "";
 
@@ -42,4 +42,4 @@ const PinInput = ({ isValidatingPin, hasError, verifyPinAndStoreBalance }: PinIn
   );
 };
 
-export default PinInput;
+export default PinForm;
