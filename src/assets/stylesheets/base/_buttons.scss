@@ -1,3 +1,7 @@
 .button {
   @apply py-2 px-4 rounded w-full transition duration-150 ease-in-out;
+
+  &:disabled {
+    @apply cursor-default;
+  }
 }

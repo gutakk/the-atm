@@ -31,7 +31,7 @@ const WithdrawForm = ({ onWithdrawClick }: WithdrawFormProps): JSX.Element => {
         onChange={(e) => handleOnChange(e)}
       />
       <button
-        className="withdraw-form__button"
+        className="button withdraw-form__button"
         disabled={withdrawAmount <= 0 || isNaN(withdrawAmount)}
         onClick={() => onWithdrawClick(withdrawAmount)}
       >
