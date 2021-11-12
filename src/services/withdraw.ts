@@ -22,6 +22,13 @@ export const validateWithdrawAmount = (withdrawAmount: number, currentBalance: n
   return null;
 };
 
+export const validateOverdrawn = (withdrawAmount: number, currentBalance: number): WithdrawError | null  => {
+  if(withdrawAmount > currentBalance) {
+    return new WithdrawError(`Be careful! You are trying to overdrawn the balance.`);
+  }
+  return null;
+};
+
 const isNotValidWithdrawAmount = (withdrawAmount: number): boolean => {
   return isNaN(withdrawAmount) || withdrawAmount <= 0;
 };

@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 
 type WithdrawFormProps = {
   onWithdrawClick: (withdrawAmount: number) => void;
-  validateOverdrawn: (withdrawAmount: number) => void;
 };
 
-const WithdrawForm = ({ onWithdrawClick, validateOverdrawn }: WithdrawFormProps): JSX.Element => {
+const WithdrawForm = ({ onWithdrawClick }: WithdrawFormProps): JSX.Element => {
   const [withdrawAmount, setWithdrawAmount] = useState<number>(0);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWithdrawAmount(parseInt(e.target.value));
-    validateOverdrawn(parseInt(e.target.value));
   };
 
   const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {

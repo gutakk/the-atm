@@ -11,7 +11,6 @@ const ATM = (): JSX.Element => {
     warningMessage,
     isSuccess,
     onWithdrawClick,
-    validateOverdrawn
   } = WithdrawHandler(currentBalance);
 
   return (
@@ -21,7 +20,7 @@ const ATM = (): JSX.Element => {
         {isSuccess && <p>Withdraw successfully</p>}
         {errorMessage && <p>{errorMessage}</p>}
         {warningMessage && <p>{warningMessage}</p>}
-        <WithdrawForm onWithdrawClick={onWithdrawClick} validateOverdrawn={validateOverdrawn} />
+        <WithdrawForm onWithdrawClick={onWithdrawClick} />
       </main>
     </div>
   );
