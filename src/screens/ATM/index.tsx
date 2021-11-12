@@ -10,9 +10,12 @@ const ATM = (): JSX.Element => {
   const { 
     errorMessage,
     warningMessage,
+    setWarningMessage,
     isSuccess,
     onWithdrawClick,
   } = WithdrawHandler(currentBalance);
+
+  console.log(warningMessage)
 
   return (
     <div className="atm-screen page-bg">
@@ -20,8 +23,14 @@ const ATM = (): JSX.Element => {
         <p>Balance: £{currentBalance}</p>
         {isSuccess && <p>Withdraw successfully</p>}
         {errorMessage && <p>{errorMessage}</p>}
-        {warningMessage && <p>{warningMessage}</p>}
-        <Modal isOpen={true} description="hello" modalType={modalType.success} />
+        {warningMessage &&
+          <Modal
+            isOpen={true}
+            description={warningMessage}
+            modalType={modalType.warning}
+            customOnClose={() => setWarningMessage("")}
+          />
+        }
         <WithdrawForm onWithdrawClick={onWithdrawClick} />
       </main>
     </div>

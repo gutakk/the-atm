@@ -16,6 +16,8 @@ type ModalProps = {
   isOpen: Boolean;
   modalType: modalType;
   description: string;
+  customOnClose?: () => void;
+  onConfirm?: () => void;
 };
 
 const Modal = (props: ModalProps): JSX.Element => {
@@ -23,6 +25,9 @@ const Modal = (props: ModalProps): JSX.Element => {
 
   const onClose = (): void => {
     setIsOpen(false);
+    if(props.customOnClose) {
+      props.customOnClose();
+    }
   }
 
   return (

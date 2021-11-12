@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 
 import { useAppDispatch } from '../../hooks/useApp';
 import { currentBalance } from '../../reducers/user';
@@ -8,6 +8,7 @@ import { validateOverdrawn, validateWithdrawAmount } from '../../services/withdr
 type WithdrawHandler = {
   errorMessage: string;
   warningMessage: string;
+  setWarningMessage: Dispatch<SetStateAction<string>>;
   isSuccess: boolean;
   onWithdrawClick: (withdrawAmount: number) => void;
 };
@@ -29,6 +30,7 @@ const WithdrawHandler = (balance: number): WithdrawHandler => {
     const overdrawnWarning = validateOverdrawn(withdrawAmount, balance);
     if(overdrawnWarning) {
       setWarningMessage(overdrawnWarning.toString());
+      return;
     }
 
     dispatch(currentBalance(balance - withdrawAmount));
@@ -38,6 +40,7 @@ const WithdrawHandler = (balance: number): WithdrawHandler => {
   return {
     errorMessage,
     warningMessage,
+    setWarningMessage,
     isSuccess,
     onWithdrawClick,
   }
