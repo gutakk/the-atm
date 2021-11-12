@@ -7,9 +7,7 @@ import SubmitHandler from './handler';
 const ATM = (): JSX.Element => {
   const { currentBalance } = useAppSelector((state) => state.user);
   const { 
-    hasError,
     errorMessage,
-    hasWarning,
     warningMessage,
     isSuccess,
     handleSubmit,
@@ -21,8 +19,8 @@ const ATM = (): JSX.Element => {
       <main className="main-content">
         <p>Balance: £{currentBalance}</p>
         {isSuccess && <p>Withdraw successfully</p>}
-        {hasError && <p>{errorMessage}</p>}
-        {hasWarning && <p>{warningMessage}</p>}
+        {errorMessage && <p>{errorMessage}</p>}
+        {warningMessage && <p>{warningMessage}</p>}
         <WithdrawForm handleSubmit={handleSubmit} validateOverdrawn={validateOverdrawn} />
       </main>
     </div>
