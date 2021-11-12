@@ -6,13 +6,13 @@ import { useAppDispatch } from '../../hooks/useApp';
 import { currentBalance, isLoggedin } from '../../reducers/user';
 
 
-type SubmitHandler = {
+type LoginHandler = {
   isValidatingPin: boolean,
   hasError: boolean,
   verifyPinAndStoreBalance: (pin: string) => void
 };
 
-const SubmitHandler = (): SubmitHandler => {
+const LoginHandler = (): LoginHandler => {
   const history: RouteComponentProps['history'] = useHistory();
   const dispatch = useAppDispatch();
 
@@ -42,4 +42,4 @@ const SubmitHandler = (): SubmitHandler => {
   }
 };
 
-export default SubmitHandler;
+export default LoginHandler;

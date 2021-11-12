@@ -5,7 +5,7 @@ import { currentBalance } from '../../reducers/user';
 import { validateWithdrawAmount } from '../../services/withdraw';
 
 
-type SubmitHandler = {
+type WithdrawHandler = {
   errorMessage: string;
   warningMessage: string;
   isSuccess: boolean;
@@ -13,7 +13,7 @@ type SubmitHandler = {
   validateOverdrawn: (withdrawAmount: number) => void;
 };
 
-const SubmitHandler = (balance: number): SubmitHandler => {
+const WithdrawHandler = (balance: number): WithdrawHandler => {
   const dispatch = useAppDispatch();
 
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -46,4 +46,4 @@ const SubmitHandler = (balance: number): SubmitHandler => {
   }
 };
 
-export default SubmitHandler;
+export default WithdrawHandler;

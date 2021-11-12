@@ -1,10 +1,10 @@
 import React from 'react';
 
 import PinInput from './PinForm';
-import SubmitHandler from './handler';
+import LoginHandler from './handler';
 
 const Login = (): JSX.Element => {
-  const { isValidatingPin, hasError, verifyPinAndStoreBalance } = SubmitHandler();
+  const { isValidatingPin, hasError, verifyPinAndStoreBalance } = LoginHandler();
 
   return (
     <div className="login-screen page-bg">

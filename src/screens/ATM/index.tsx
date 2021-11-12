@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useAppSelector } from '../../hooks/useApp';
 import WithdrawForm from './WithdrawForm';
-import SubmitHandler from './handler';
+import WithdrawHandler from './handler';
 
 const ATM = (): JSX.Element => {
   const { currentBalance } = useAppSelector((state) => state.user);
@@ -12,7 +12,7 @@ const ATM = (): JSX.Element => {
     isSuccess,
     onWithdrawClick,
     validateOverdrawn
-  } = SubmitHandler(currentBalance);
+  } = WithdrawHandler(currentBalance);
 
   return (
     <div className="atm-screen page-bg">
