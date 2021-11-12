@@ -39,7 +39,7 @@ const Modal = (props: ModalProps): JSX.Element => {
           <div className="modal__button-container">
             <button className="button modal__button-close" onClick={onClose}>Close</button>
             {props.modalType === modalType.warning && 
-              <button className="button modal__button-continue">Continue</button>
+              <button className="button modal__button-continue" onClick={props.onConfirm}>Continue</button>
             }
           </div>
         </div>

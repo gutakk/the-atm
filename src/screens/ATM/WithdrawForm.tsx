@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
+import { withdrawAmountAction } from '../../reducers/atm';
 
 type WithdrawFormProps = {
   onWithdrawClick: (withdrawAmount: number) => void;
 };
 
 const WithdrawForm = ({ onWithdrawClick }: WithdrawFormProps): JSX.Element => {
-  const [withdrawAmount, setWithdrawAmount] = useState<number>(0);
+  const dispatch = useAppDispatch();
+  const { withdrawAmount } = useAppSelector((state) => state.atm)
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setWithdrawAmount(parseInt(e.target.value));
+    dispatch(withdrawAmountAction(parseInt(e.target.value)));
   };
 
   const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {

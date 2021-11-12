@@ -7,28 +7,37 @@ import Modal, { modalType } from '../../components/Modal';
 
 const ATM = (): JSX.Element => {
   const { currentBalance } = useAppSelector((state) => state.user);
+  const { withdrawAmount } = useAppSelector((state) => state.atm);
   const { 
     errorMessage,
     warningMessage,
     setWarningMessage,
-    isSuccess,
+    successMessage,
+    setSuccessMessage,
     onWithdrawClick,
+    withdraw,
   } = WithdrawHandler(currentBalance);
-
-  console.log(warningMessage)
 
   return (
     <div className="atm-screen page-bg">
       <main className="main-content">
         <p>Balance: £{currentBalance}</p>
-        {isSuccess && <p>Withdraw successfully</p>}
         {errorMessage && <p>{errorMessage}</p>}
+        {successMessage &&
+          <Modal
+            isOpen={true}
+            description={successMessage}
+            modalType={modalType.success}
+            customOnClose={() => setSuccessMessage("")}
+          />
+        }
         {warningMessage &&
           <Modal
             isOpen={true}
             description={warningMessage}
             modalType={modalType.warning}
             customOnClose={() => setWarningMessage("")}
+            onConfirm={() => withdraw(withdrawAmount)}
           />
         }
         <WithdrawForm onWithdrawClick={onWithdrawClick} />

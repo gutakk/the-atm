@@ -1,9 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
+import atm from './reducers/atm';
+import atmReducer from './reducers/atm';
 import userReducer from './reducers/user';
 
 const store = configureStore({
   reducer: {
-    user: userReducer
+    atm: atm,
+    user: userReducer,
   },
 });
 
