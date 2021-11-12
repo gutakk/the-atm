@@ -3,6 +3,7 @@ import React from 'react';
 import { useAppSelector } from '../../hooks/useApp';
 import WithdrawForm from './WithdrawForm';
 import WithdrawHandler from './handler';
+import Modal, { modalType } from '../../components/Modal';
 
 const ATM = (): JSX.Element => {
   const { currentBalance } = useAppSelector((state) => state.user);
@@ -20,6 +21,7 @@ const ATM = (): JSX.Element => {
         {isSuccess && <p>Withdraw successfully</p>}
         {errorMessage && <p>{errorMessage}</p>}
         {warningMessage && <p>{warningMessage}</p>}
+        <Modal isOpen={true} description="hello" modalType={modalType.success} />
         <WithdrawForm onWithdrawClick={onWithdrawClick} />
       </main>
     </div>

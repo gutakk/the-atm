@@ -1,0 +1,43 @@
+.modal {
+  @apply w-full h-full absolute top-0 left-0 z-50;
+
+  &__backdrop {
+    @apply w-full h-full bg-black bg-opacity-70 flex justify-center items-center;
+  }
+
+  &__content-container {
+    @apply bg-white w-64 md:w-96 rounded-2xl p-6 flex flex-col justify-center items-center;
+  }
+
+  &__icon {
+    @apply text-5xl mb-5;
+  }
+
+  &__description {
+    @apply text-xl;
+  }
+
+  &__button-container {
+    @apply w-full flex;
+  }
+
+  &__button-close {
+    @apply border hover:bg-gray-50 mt-3;
+  }
+
+  &__button-continue {
+    @apply bg-yellow-400 hover:bg-yellow-300 mt-3 ml-3
+  }
+}
+
+.modal-warning {
+  .modal__icon {
+    @apply text-yellow-400;
+  }
+}
+
+.modal-success {
+  .modal__icon {
+    @apply text-green-400;
+  }
+}
