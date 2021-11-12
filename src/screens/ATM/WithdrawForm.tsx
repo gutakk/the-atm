@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 type WithdrawFormProps = {
-  handleSubmit: (withdrawAmount: number) => void;
+  onWithdrawClick: (withdrawAmount: number) => void;
   validateOverdrawn: (withdrawAmount: number) => void;
 };
 
-const WithdrawForm = ({ handleSubmit, validateOverdrawn }: WithdrawFormProps): JSX.Element => {
+const WithdrawForm = ({ onWithdrawClick, validateOverdrawn }: WithdrawFormProps): JSX.Element => {
   const [withdrawAmount, setWithdrawAmount] = useState<number>(0);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,7 @@ const WithdrawForm = ({ handleSubmit, validateOverdrawn }: WithdrawFormProps): J
       <button
         className="withdraw-form__button"
         disabled={withdrawAmount <= 0 || isNaN(withdrawAmount)}
-        onClick={() => handleSubmit(withdrawAmount)}
+        onClick={() => onWithdrawClick(withdrawAmount)}
       >
         Withdraw
       </button>

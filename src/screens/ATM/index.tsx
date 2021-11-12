@@ -10,7 +10,7 @@ const ATM = (): JSX.Element => {
     errorMessage,
     warningMessage,
     isSuccess,
-    handleSubmit,
+    onWithdrawClick,
     validateOverdrawn
   } = SubmitHandler(currentBalance);
 
@@ -21,7 +21,7 @@ const ATM = (): JSX.Element => {
         {isSuccess && <p>Withdraw successfully</p>}
         {errorMessage && <p>{errorMessage}</p>}
         {warningMessage && <p>{warningMessage}</p>}
-        <WithdrawForm handleSubmit={handleSubmit} validateOverdrawn={validateOverdrawn} />
+        <WithdrawForm onWithdrawClick={onWithdrawClick} validateOverdrawn={validateOverdrawn} />
       </main>
     </div>
   );

@@ -9,7 +9,7 @@ type SubmitHandler = {
   errorMessage: string;
   warningMessage: string;
   isSuccess: boolean;
-  handleSubmit: (withdrawAmount: number) => void;
+  onWithdrawClick: (withdrawAmount: number) => void;
   validateOverdrawn: (withdrawAmount: number) => void;
 };
 
@@ -20,7 +20,7 @@ const SubmitHandler = (balance: number): SubmitHandler => {
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   
-  const handleSubmit = (withdrawAmount: number) => {
+  const onWithdrawClick = (withdrawAmount: number) => {
     const error = validateWithdrawAmount(withdrawAmount, balance);
     if(error) {
       setErrorMessage(error.toString());
@@ -41,7 +41,7 @@ const SubmitHandler = (balance: number): SubmitHandler => {
     errorMessage,
     warningMessage,
     isSuccess,
-    handleSubmit,
+    onWithdrawClick,
     validateOverdrawn,
   }
 };
