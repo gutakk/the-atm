@@ -24,7 +24,7 @@ export const atmReducer = createSlice({
   name: 'atm',
   initialState,
   reducers: {
-    availableNotes: (state, action: PayloadAction<Notes>) => {
+    availableNotesAction: (state, action: PayloadAction<Notes>) => {
       state.availableNotes = action.payload;
     },
     withdrawAmountAction: (state, action: PayloadAction<number>) => {
@@ -33,6 +33,6 @@ export const atmReducer = createSlice({
   },
 });
 
-export const { availableNotes, withdrawAmountAction } = atmReducer.actions;
+export const { availableNotesAction, withdrawAmountAction } = atmReducer.actions;
 
 export default atmReducer.reducer;
