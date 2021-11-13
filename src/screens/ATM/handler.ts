@@ -80,7 +80,7 @@ const WithdrawHandler = (currentBalance: number): WithdrawHandler => {
   }
 };
 
-const getWithdrewNotesMessage = (noteCombinations: Notes): string => {
+export const getWithdrewNotesMessage = (noteCombinations: Notes): string => {
   const noteTypes: string[] = Object.keys(noteCombinations).sort((a,b) => b.localeCompare(a, 'en', {numeric: true}));
   let message: string[] = [];
 
