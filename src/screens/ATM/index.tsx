@@ -27,7 +27,9 @@ const ATM = (): JSX.Element => {
     <div className="atm-screen page-bg">
       <main className="main-content">
         <h3 className="main-content__title">BALANCE</h3>
-        <h1 className="main-content__balance"><span className="main-content__balance--currency">£</span>{currentBalance}</h1>
+        <h1 className="main-content__balance" data-test-id="currentBalance">
+          <span className="main-content__balance--currency">£</span>{currentBalance}
+        </h1>
         {errorMessage && <Alert detail={errorMessage} />}
         {successMessage &&
           <Modal

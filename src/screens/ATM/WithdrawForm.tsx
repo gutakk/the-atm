@@ -26,6 +26,7 @@ const WithdrawForm = ({ onWithdrawClick }: WithdrawFormProps): JSX.Element => {
     <div className="withdraw-form">
       <input
         className="withdraw-form__input"
+        data-test-id="withdrawInput"
         type="number"
         value={withdrawValue}
         onKeyPress={(e) => handleOnKeyPress(e)}
@@ -33,6 +34,7 @@ const WithdrawForm = ({ onWithdrawClick }: WithdrawFormProps): JSX.Element => {
       />
       <button
         className="button withdraw-form__button"
+        data-test-id="withdrawButton"
         disabled={withdrawAmount <= 0 || isNaN(withdrawAmount)}
         onClick={() => onWithdrawClick(withdrawAmount)}
       >
