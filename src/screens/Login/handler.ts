@@ -3,7 +3,7 @@ import { RouteComponentProps, useHistory } from 'react-router-dom'
 
 import { verifyPinAPI } from '../../adapters/pin';
 import { useAppDispatch } from '../../hooks/useApp';
-import { currentBalance, isLoggedin } from '../../reducers/user';
+import { currentBalanceAction, isLoggedinAction } from '../../reducers/user';
 
 
 type LoginHandler = {
@@ -25,8 +25,8 @@ const LoginHandler = (): LoginHandler => {
       setHasError(false);
 
       const { data } = await verifyPinAPI(pin);
-      dispatch(currentBalance(data.currentBalance));
-      dispatch(isLoggedin(true));
+      dispatch(currentBalanceAction(data.currentBalance));
+      dispatch(isLoggedinAction(true));
       
       history.push('/atm');
     } catch(err) {
