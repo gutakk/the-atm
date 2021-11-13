@@ -48,9 +48,14 @@ const WithdrawHandler = (currentBalance: number): WithdrawHandler => {
   const withdraw = (withdrawAmount: number) => {
     setErrorMessage('');
     setWarningMessage('');
-    const { noteCombinations, remaningNotes } = getRoughlyEvenMixNotes(availableNotes, withdrawAmount);
+    const { noteCombinations, remainingNotes, getNoteError } = getRoughlyEvenMixNotes(availableNotes, withdrawAmount);
+    if(getNoteError) {
+      setErrorMessage(getNoteError.toString());
+      dispatch(withdrawAmountAction(0));
+      return;
+    }
     // dispatch(currentBalanceAction(balance - withdrawAmount));
-    dispatch(availableNotesAction(remaningNotes));
+    dispatch(availableNotesAction(remainingNotes));
     setSuccessMessage('Withdraw successfully');
     dispatch(withdrawAmountAction(0));
   }

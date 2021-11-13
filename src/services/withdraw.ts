@@ -45,30 +45,45 @@ const isWithdrawAmountCannotMod5 = (withdrawAmount: number): boolean => {
   return withdrawAmount % 5 !== 0;
 };
 
-export const getRoughlyEvenMixNotes = (availableNotes: Notes, withdrawAmount: number): { noteCombinations: Notes, remaningNotes: Notes } => {
+type GetRoughlyEvenMixNotes = {
+  noteCombinations: Notes;
+  remainingNotes: Notes;
+  getNoteError: WithdrawError | null;
+};
+
+export const getRoughlyEvenMixNotes = (availableNotes: Notes, withdrawAmount: number): GetRoughlyEvenMixNotes => {
   const noteTypes: string[] = Object.keys(availableNotes).sort();
   let noteCombinations: Notes = { '5': 0, '10': 0, '20': 0 };
-  let remaningNotes = { ...availableNotes};
+  let remainingNotes = { ...availableNotes};
 
   let i = 0;
   while(true) {
-    if(withdrawAmount <= 0) break;
     if(i > 2) { i = 0 };
+    if(withdrawAmount <= 0) break;
+    if(isAtmRunOutOfNote(remainingNotes)) return {
+      noteCombinations,
+      remainingNotes,
+      getNoteError: new WithdrawError(`Sorry, we do not have enough notes to withdraw £${withdrawAmount}`),
+    }
     let noteType: string = noteTypes[i];
     let noteValue = parseInt(noteType)
-
-    if(noteValue > withdrawAmount) {
-      i++;
-      continue; 
-    }
-
-    withdrawAmount -= noteValue;
+    
     if(noteType === '5' || noteType === '10' || noteType === '20') {
+      if(noteValue > withdrawAmount || remainingNotes[noteType] <= 0) {
+        i++;
+        continue; 
+      }
+
+      withdrawAmount -= noteValue;
       noteCombinations[noteType] += 1;
-      remaningNotes[noteType] -= 1
+      remainingNotes[noteType] -= 1
     }
     i++;
   };
 
-  return { noteCombinations, remaningNotes }
+  return { noteCombinations, remainingNotes, getNoteError: null }
 };
+
+const isAtmRunOutOfNote = (remainingNotes: Notes): boolean => {
+  return Object.values(remainingNotes).every(value => value === 0);
+}
