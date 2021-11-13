@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type Notes = {
-  'fivePounds': number;
-  'tenPounds': number;
-  'twentyPounds': number;
+export type Notes = {
+  '5': number;
+  '10': number;
+  '20': number;
 }
 
 type AtmState = {
@@ -13,9 +13,9 @@ type AtmState = {
 
 const initialState: AtmState = {
   availableNotes: {
-    'fivePounds': 4,
-    'tenPounds': 15,
-    'twentyPounds': 7,
+    '5': 4,
+    '10': 15,
+    '20': 7,
   },
   withdrawAmount: 0,
 };
