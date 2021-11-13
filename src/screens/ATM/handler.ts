@@ -1,9 +1,13 @@
 import React, { useState, Dispatch, SetStateAction } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
-import { withdrawAmountAction } from '../../reducers/atm';
-import { currentBalance } from '../../reducers/user';
-import { validateOverdrawn, validateWithdrawAmount } from '../../services/withdraw';
+import { withdrawAmountAction, availableNotesAction } from '../../reducers/atm';
+import { currentBalanceAction } from '../../reducers/user';
+import {
+  getRoughlyEvenMixNotes,
+  validateOverdrawn,
+  validateWithdrawAmount
+} from '../../services/withdraw';
 
 
 type WithdrawHandler = {
@@ -16,23 +20,23 @@ type WithdrawHandler = {
   withdraw: (withdrawAmount: number) => void;
 };
 
-const WithdrawHandler = (balance: number): WithdrawHandler => {
+const WithdrawHandler = (currentBalance: number): WithdrawHandler => {
   const dispatch = useAppDispatch();
-  const { withdrawAmount } = useAppSelector((state) => state.atm);
+  const { availableNotes, withdrawAmount } = useAppSelector((state) => state.atm);
 
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
   
   const onWithdrawClick = () => {
-    const amountError = validateWithdrawAmount(withdrawAmount, balance);
+    const amountError = validateWithdrawAmount(withdrawAmount, currentBalance);
     if(amountError) {
       setErrorMessage(amountError.toString());
       dispatch(withdrawAmountAction(0));
       return;
     }
 
-    const overdrawnWarning = validateOverdrawn(withdrawAmount, balance);
+    const overdrawnWarning = validateOverdrawn(withdrawAmount, currentBalance);
     if(overdrawnWarning) {
       setWarningMessage(overdrawnWarning.toString());
       return;
@@ -44,8 +48,9 @@ const WithdrawHandler = (balance: number): WithdrawHandler => {
   const withdraw = (withdrawAmount: number) => {
     setErrorMessage('');
     setWarningMessage('');
-
-    dispatch(currentBalance(balance - withdrawAmount));
+    const { noteCombinations, remaningNotes } = getRoughlyEvenMixNotes(availableNotes, withdrawAmount);
+    // dispatch(currentBalanceAction(balance - withdrawAmount));
+    dispatch(availableNotesAction(remaningNotes));
     setSuccessMessage('Withdraw successfully');
     dispatch(withdrawAmountAction(0));
   }
