@@ -17,8 +17,8 @@ type WithdrawHandler = {
   setWarningMessage: Dispatch<SetStateAction<string>>;
   successMessage: string;
   setSuccessMessage: Dispatch<SetStateAction<string>>;
-  withdrawedNotes: string;
-  setWithdrawedNotes: Dispatch<SetStateAction<string>>;
+  withdrewNotes: string;
+  setWithdrewNotes: Dispatch<SetStateAction<string>>;
   onWithdrawClick: (withdrawAmount: number) => void;
   withdraw: (withdrawAmount: number) => void;
 };
@@ -30,7 +30,7 @@ const WithdrawHandler = (currentBalance: number): WithdrawHandler => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
-  const [withdrawedNotes, setWithdrawedNotes] = useState<string>('');
+  const [withdrewNotes, setWithdrewNotes] = useState<string>('');
   
   const onWithdrawClick = () => {
     const amountError = validateWithdrawAmount(withdrawAmount, currentBalance);
@@ -53,15 +53,17 @@ const WithdrawHandler = (currentBalance: number): WithdrawHandler => {
     setErrorMessage('');
     setWarningMessage('');
     const { noteCombinations, remainingNotes, getNoteError } = getRoughlyEvenMixNotes(availableNotes, withdrawAmount);
+
     if(getNoteError) {
       setErrorMessage(getNoteError.toString());
       dispatch(withdrawAmountAction(0));
       return;
     }
-    // dispatch(currentBalanceAction(currentBalance - withdrawAmount));
+    
+    dispatch(currentBalanceAction(currentBalance - withdrawAmount));
     dispatch(availableNotesAction(remainingNotes));
     setSuccessMessage(`Withdraw £${withdrawAmount} successfully`);
-    setWithdrawedNotes(getWithdrawedNotesMessage(noteCombinations,));
+    setWithdrewNotes(getWithdrewNotesMessage(noteCombinations,));
     dispatch(withdrawAmountAction(0));
   }
 
@@ -71,21 +73,21 @@ const WithdrawHandler = (currentBalance: number): WithdrawHandler => {
     setWarningMessage,
     successMessage,
     setSuccessMessage,
-    withdrawedNotes,
-    setWithdrawedNotes,
+    withdrewNotes,
+    setWithdrewNotes,
     onWithdrawClick,
     withdraw
   }
 };
 
-const getWithdrawedNotesMessage = (noteCombinations: Notes): string => {
+const getWithdrewNotesMessage = (noteCombinations: Notes): string => {
   const noteTypes: string[] = Object.keys(noteCombinations).sort();
   let message: string[] = [];
 
   for(let i = 0; i < noteTypes.length; i++) {
     const noteType = noteTypes[i] as (keyof Notes);
-    const withdrawedNote = noteCombinations[noteType];
-    if(withdrawedNote !== 0) {
+    const withdrewNote = noteCombinations[noteType];
+    if(withdrewNote !== 0) {
       message.push(`£${noteType}x${noteCombinations[noteType]}`);
     }
   }
