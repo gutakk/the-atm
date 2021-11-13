@@ -1,5 +1,5 @@
-import { current } from '@reduxjs/toolkit';
 import * as withdraw from '../../services/withdraw';
+import { Notes } from '../../reducers/atm';
 
 describe('withdraw service', () => {
   describe('#validateOverdrawn', () => {
@@ -168,6 +168,50 @@ describe('withdraw service', () => {
 
           expect(error).not.toBeNull();
           expect(error?.toString()).toEqual(`Sorry, we do not have enough notes to withdraw £${withdrawAmount}`);
+        });
+      });
+    });
+  });
+
+  describe('#isAtmRunOutOfNote', () => {
+    describe('given empty remaining notes', () => {
+      it('returns true', () => {
+        const remainingNotes: Notes = { '5': 0, '10': 0, '20': 0};
+
+        const result = withdraw.isAtmRunOutOfNote(remainingNotes);
+
+        expect(result).toBeTruthy();
+      });
+    });
+
+    describe('given all notes are negative', () => {
+      it('returns true', () => {
+        const remainingNotes: Notes = { '5': -1, '10': -1, '20': -1};
+
+        const result = withdraw.isAtmRunOutOfNote(remainingNotes);
+
+        expect(result).toBeTruthy();
+      });
+    });
+
+    describe('given non-empty remaining notes', () => {
+      describe('given all notes are not empty', () => {
+        it('returns false', () => {
+          const remainingNotes: Notes = { '5': 1, '10': 1, '20': 1};
+  
+          const result = withdraw.isAtmRunOutOfNote(remainingNotes);
+  
+          expect(result).toBeFalsy();
+        });
+      });
+
+      describe('given some notes are not empty', () => {
+        it('returns false', () => {
+          const remainingNotes: Notes = { '5': 0, '10': 1, '20': 0};
+  
+          const result = withdraw.isAtmRunOutOfNote(remainingNotes);
+  
+          expect(result).toBeFalsy();
         });
       });
     });
