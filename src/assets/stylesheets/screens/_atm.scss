@@ -1,11 +1,11 @@
 .atm-screen {
-  @apply flex justify-center items-center;
+  @apply flex justify-center items-center p-5;
 
   .main-content {
     @apply flex flex-col items-center;
 
     &__title {
-      @apply tracking-widest;
+      @apply tracking-widest mb-5;
     }
 
     &__balance {
@@ -18,7 +18,7 @@
   }
 
   .withdraw-form {
-    @apply mt-5;
+    @apply mt-10;
 
     &__input {
       @apply shadow rounded p-2;
@@ -41,6 +41,6 @@
   }
 
   .alert {
-    @apply mt-5 mb-2;
+    @apply mt-10;
   }
 }

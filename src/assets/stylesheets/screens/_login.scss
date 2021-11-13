@@ -1,11 +1,11 @@
 .login-screen {
-  @apply flex justify-center items-center;
+  @apply flex justify-center items-center p-5;
   
   .main-content {
     @apply flex flex-col items-center;
 
     &__app-name {
-      @apply text-4xl font-bold;
+      @apply text-4xl font-bold mb-4;
 
       &--main {
         @apply text-6xl text-yellow-400 rounded-full py-2 inline-block mb-1;
@@ -13,7 +13,7 @@
     }
 
     &__greeting {
-      @apply mb-1;
+      @apply mb-2;
 
       &--name {
         @apply font-bold;
@@ -21,7 +21,7 @@
     }
 
     &__description {
-      @apply mb-5;
+      @apply mb-10 text-center;
 
       &--alert {
         @apply text-red-700;
