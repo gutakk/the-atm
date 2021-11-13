@@ -1,0 +1,11 @@
+.alert {
+  @apply flex justify-center items-center bg-red-200 rounded px-3 py-2;
+
+  &__icon {
+    @apply text-lg text-red-700 mr-2;
+  }
+
+  &__detail {
+    @apply text-red-900 font-bold;
+  }
+}

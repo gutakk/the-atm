@@ -2,13 +2,29 @@
   @apply flex justify-center items-center;
   
   .main-content {
-    @apply text-center;
+    @apply flex flex-col items-center;
 
     &__app-name {
       @apply text-4xl font-bold;
 
       &--main {
-        @apply text-5xl text-yellow-400 rounded-full py-2 inline-block;
+        @apply text-6xl text-yellow-400 rounded-full py-2 inline-block mb-1;
+      }
+    }
+
+    &__greeting {
+      @apply mb-1;
+
+      &--name {
+        @apply font-bold;
+      }
+    }
+
+    &__description {
+      @apply mb-5;
+
+      &--alert {
+        @apply text-red-700;
       }
     }
   }
@@ -27,5 +43,9 @@
       margin-top: 24px;
       margin-left: 73px;
     }
+  }
+
+  .alert {
+    @apply px-11 mb-2;
   }
 }

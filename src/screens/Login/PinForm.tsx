@@ -4,11 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type PinFormProps = {
   isValidatingPin: boolean,
-  hasError: boolean,
   verifyPinAndStoreBalance: (pin: string) => void;
 };
 
-const PinForm = ({ isValidatingPin, hasError, verifyPinAndStoreBalance }: PinFormProps): JSX.Element => {
+const PinForm = ({ isValidatingPin, verifyPinAndStoreBalance }: PinFormProps): JSX.Element => {
   const pinLength: number = 4;
   const initialPin: string = "";
 
@@ -37,7 +36,6 @@ const PinForm = ({ isValidatingPin, hasError, verifyPinAndStoreBalance }: PinFor
         value={pin}
         disabled={isValidatingPin}
       />
-      {hasError && <p>Invalid PIN</p>}
     </div>
   );
 };
