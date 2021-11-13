@@ -6,11 +6,11 @@ type AlertProps = {
   detail: string
 };
 
-const Alert = ({ detail }: AlertProps): JSX.Element => {
+const Alert = (props: AlertProps): JSX.Element => {
   return (
     <div className="alert" data-test-id="alert">
       <FontAwesomeIcon className="alert__icon" icon={faExclamationCircle} />
-      <p className="alert__detail">{detail}</p>
+      <p className="alert__detail">{props.detail}</p>
     </div>
   );
 };
