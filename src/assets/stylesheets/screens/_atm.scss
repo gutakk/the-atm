@@ -1,7 +1,25 @@
 .atm-screen {
   @apply flex justify-center items-center;
 
+  .main-content {
+    @apply flex flex-col items-center;
+
+    &__title {
+      @apply tracking-widest;
+    }
+
+    &__balance {
+      @apply text-8xl font-bold;
+
+      &--currency {
+        @apply text-6xl font-normal mr-2;
+      }
+    }
+  }
+
   .withdraw-form {
+    @apply mt-5;
+
     &__input {
       @apply shadow rounded p-2;
       -moz-appearance: textfield;
@@ -14,11 +32,15 @@
     }
 
     &__button {
-      @apply block bg-yellow-400 hover:bg-yellow-300 mt-3;
+      @apply block bg-yellow-400 hover:bg-yellow-300 mt-3 shadow;
 
       &:disabled {
         @apply bg-gray-100;
       }
     }
+  }
+
+  .alert {
+    @apply mt-5 mb-2;
   }
 }
