@@ -24,7 +24,7 @@
     "react-redux": "7.2.6",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
-    "serve": "^13.0.2",
+    "serve": "13.0.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@2.2.17",
     "typescript": "4.4.4",
     "web-vitals": "2.1.2"
@@ -54,5 +54,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "5.15.0",
+    "@testing-library/react": "12.1.2",
+    "@types/redux-mock-store": "1.0.3",
+    "redux-mock-store": "1.5.4"
   }
 }
