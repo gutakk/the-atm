@@ -11,7 +11,7 @@ type AtmState = {
   withdrawAmount: number,
 };
 
-const initialState: AtmState = {
+export const initialState: AtmState = {
   availableNotes: {
     '5': 4,
     '10': 15,

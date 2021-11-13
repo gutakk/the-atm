@@ -55,35 +55,36 @@ export const getRoughlyEvenMixNotes = (availableNotes: Notes, withdrawAmount: nu
   const noteTypes: string[] = Object.keys(availableNotes).sort();
   let noteCombinations: Notes = { '5': 0, '10': 0, '20': 0 };
   let remainingNotes = { ...availableNotes};
-
+  let tempWithdrawAmount = withdrawAmount;
+  
   let i = 0;
   while(true) {
     if(i > 2) { i = 0 };
-    if(withdrawAmount <= 0) break;
+    if(tempWithdrawAmount <= 0) break;
     if(isAtmRunOutOfNote(remainingNotes)) return {
       noteCombinations,
       remainingNotes,
       getNoteError: new WithdrawError(`Sorry, we do not have enough notes to withdraw £${withdrawAmount}`),
-    }
+    };
     let noteType: string = noteTypes[i];
     let noteValue = parseInt(noteType)
     
     if(noteType === '5' || noteType === '10' || noteType === '20') {
-      if(noteValue > withdrawAmount || remainingNotes[noteType] <= 0) {
+      if(noteValue > tempWithdrawAmount || remainingNotes[noteType] <= 0) {
         i++;
         continue; 
       }
 
-      withdrawAmount -= noteValue;
+      tempWithdrawAmount -= noteValue;
       noteCombinations[noteType] += 1;
       remainingNotes[noteType] -= 1
     }
     i++;
   };
 
-  return { noteCombinations, remainingNotes, getNoteError: null }
+  return { noteCombinations, remainingNotes, getNoteError: null };
 };
 
 const isAtmRunOutOfNote = (remainingNotes: Notes): boolean => {
   return Object.values(remainingNotes).every(value => value === 0);
-}
+};

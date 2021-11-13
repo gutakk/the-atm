@@ -54,7 +54,7 @@ const WithdrawHandler = (currentBalance: number): WithdrawHandler => {
       dispatch(withdrawAmountAction(0));
       return;
     }
-    // dispatch(currentBalanceAction(balance - withdrawAmount));
+    dispatch(currentBalanceAction(currentBalance - withdrawAmount));
     dispatch(availableNotesAction(remainingNotes));
     setSuccessMessage('Withdraw successfully');
     dispatch(withdrawAmountAction(0));
