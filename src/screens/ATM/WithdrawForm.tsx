@@ -10,6 +10,7 @@ type WithdrawFormProps = {
 const WithdrawForm = ({ onWithdrawClick }: WithdrawFormProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const { withdrawAmount } = useAppSelector((state) => state.atm)
+  const withdrawValue = withdrawAmount > 0 ? withdrawAmount : '';
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(withdrawAmountAction(parseInt(e.target.value)));
@@ -26,7 +27,7 @@ const WithdrawForm = ({ onWithdrawClick }: WithdrawFormProps): JSX.Element => {
       <input
         className="withdraw-form__input"
         type="number"
-        value={withdrawAmount}
+        value={withdrawValue}
         onKeyPress={(e) => handleOnKeyPress(e)}
         onChange={(e) => handleOnChange(e)}
       />
