@@ -29,6 +29,7 @@ const PinForm = ({ isValidatingPin, verifyPinAndStoreBalance }: PinFormProps): J
       {isValidatingPin && <FontAwesomeIcon className="pin-form__spinner" icon={faCircleNotch} spin />}
       <input
         className="pin-form__input"
+        data-test-id="pinInput"
         type="password"
         maxLength={4}
         size={4}

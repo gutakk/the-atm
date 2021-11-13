@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from 'react';
+import { useState, Dispatch, SetStateAction } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
 import { withdrawAmountAction, availableNotesAction } from '../../reducers/atm';
