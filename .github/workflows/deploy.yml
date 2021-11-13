@@ -1,0 +1,30 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows:
+      - Test
+    branches:
+      - main
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    env:
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_STAGING }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0
+
+      - name: Deploy to Heroku
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git remote add the-atm https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_PROD.git
+          git push -f the-atm origin/main:refs/heads/master
