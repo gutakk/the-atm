@@ -10,8 +10,7 @@ const Routes = (): JSX.Element => {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Login} />
-        <Route path="/atm" exact component={ATM} />
-        {/* <PrivateRoute path="/atm" exact component={ATM} /> */}
+        <PrivateRoute path="/atm" exact component={ATM} />
       </Switch>
     </BrowserRouter>
   );
