@@ -4,9 +4,11 @@
 // Base
 @import 'base/_background.scss';
 @import 'base/_buttons.scss';
+@import 'base/_fonts.scss';
 @import 'base/_layouts.scss';
 
 // Components
+@import 'components/_alert.scss';
 @import 'components/_modal.scss';
 
 // Screens
