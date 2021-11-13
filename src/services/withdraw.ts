@@ -26,22 +26,22 @@ export const validateWithdrawAmount = (withdrawAmount: number, currentBalance: n
 
 export const validateOverdrawn = (withdrawAmount: number, currentBalance: number): WithdrawError | null  => {
   if(withdrawAmount > currentBalance) {
-    return new WithdrawError(`Be careful! You are trying to overdrawn the balance.`);
+    return new WithdrawError('Be careful! You are trying to overdrawn the balance');
   }
   return null;
 };
 
-const isNotValidWithdrawAmount = (withdrawAmount: number): boolean => {
+export const isNotValidWithdrawAmount = (withdrawAmount: number): boolean => {
   return isNaN(withdrawAmount) || withdrawAmount <= 0;
 };
 
-const isWithdrawAmountExceedBalance = (withdrawAmount: number, currentBalance: number): boolean => {
+export const isWithdrawAmountExceedBalance = (withdrawAmount: number, currentBalance: number): boolean => {
   const overdraftAmount = 100;
 
   return withdrawAmount > currentBalance + overdraftAmount;
 };
 
-const isWithdrawAmountCannotMod5 = (withdrawAmount: number): boolean => {
+export const isWithdrawAmountCannotMod5 = (withdrawAmount: number): boolean => {
   return withdrawAmount % 5 !== 0;
 };
 
