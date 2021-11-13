@@ -81,7 +81,7 @@ const WithdrawHandler = (currentBalance: number): WithdrawHandler => {
 };
 
 const getWithdrewNotesMessage = (noteCombinations: Notes): string => {
-  const noteTypes: string[] = Object.keys(noteCombinations).sort();
+  const noteTypes: string[] = Object.keys(noteCombinations).sort((a,b) => b.localeCompare(a, 'en', {numeric: true}));
   let message: string[] = [];
 
   for(let i = 0; i < noteTypes.length; i++) {
@@ -91,7 +91,6 @@ const getWithdrewNotesMessage = (noteCombinations: Notes): string => {
       message.push(`£${noteType}x${noteCombinations[noteType]}`);
     }
   }
-
   return message.join(', ');
 }
 
