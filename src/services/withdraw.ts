@@ -76,7 +76,7 @@ export const getRoughlyEvenMixNotes = (availableNotes: Notes, withdrawAmount: nu
     const noteType = noteTypes[i] as (keyof Notes);
     const noteValue = parseInt(noteType)
     
-    if(noteValue > tempWithdrawAmount || remainingNotes[noteType] <= 0 || (noteValue * remainingNotes[noteType] < tempWithdrawAmount)) {
+    if(noteValue > tempWithdrawAmount || remainingNotes[noteType] <= 0) {
       notAbleToGetNoteCount++;
       i++;
       continue; 

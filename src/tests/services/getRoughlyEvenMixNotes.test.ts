@@ -112,6 +112,18 @@ describe('#getRoughlyEvenMixNotes', () => {
         expect(result.remainingNotes).toEqual({ '5': 2, '10': 14, '20': 6 });
       });
     });
+
+    describe('given 220 withdraw amount', () => {
+      it('returns correct noteCombinations, remainingNotes and no error', () => {
+        const withdrawAmount = 220;
+
+        const result = getRoughlyEvenMixNotes(availableNotes, withdrawAmount);
+
+        expect(result.getNoteError).toBeNull();
+        expect(result.noteCombinations).toEqual({ '5': 4, '10': 6, '20': 7 });
+        expect(result.remainingNotes).toEqual({ '5': 0, '10': 9, '20': 0 });
+      });
+    });
   });
 
   describe('given 5 note is empty', () => {
@@ -214,22 +226,6 @@ describe('#getRoughlyEvenMixNotes', () => {
         expect(result.getNoteError).toBeNull();
         expect(result.noteCombinations).toEqual({ '5': 2, '10': 1, '20': 0 });
         expect(result.remainingNotes).toEqual({ '5': 2, '10': 14, '20': 0 });
-      });
-    });
-  });
-
-  describe('given odd 5 note and 20 note is empty', () => {
-    const availableNotes: Notes = { '5': 3, '10': 15, '20': 0 };
-
-    describe('given 50 withdraw amount', () => {
-      it('returns correct noteCombinations, remainingNotes and no error', () => {
-        const withdrawAmount = 50;
-
-        const result = getRoughlyEvenMixNotes(availableNotes, withdrawAmount);
-
-        expect(result.getNoteError).toBeNull();
-        expect(result.noteCombinations).toEqual({ '5': 2, '10': 4, '20': 0 });
-        expect(result.remainingNotes).toEqual({ '5': 1, '10': 11, '20': 0 });
       });
     });
   });
