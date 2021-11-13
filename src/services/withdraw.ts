@@ -16,7 +16,7 @@ export const validateWithdrawAmount = (withdrawAmount: number, currentBalance: n
     return new WithdrawError('Please enter valid withdraw amount');
   }
   if(isWithdrawAmountExceedBalance(withdrawAmount, currentBalance)) {
-    return new WithdrawError('Withdraw amount exceeds balance');
+    return new WithdrawError('Withdraw amount exceeds balance and overdraft');
   }
   if(isWithdrawAmountCannotMod5(withdrawAmount)) {
     return new WithdrawError(`Sorry, we do not have enough notes to withdraw £${withdrawAmount}`);
