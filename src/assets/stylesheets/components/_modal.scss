@@ -15,6 +15,10 @@
 
   &__description {
     @apply text-center mb-3;
+
+    &--withdrawed-notes {
+      @apply font-bold text-xs;
+    }
   }
 
   &__button-container {

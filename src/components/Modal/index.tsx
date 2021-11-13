@@ -16,6 +16,7 @@ type ModalProps = {
   isOpen: Boolean;
   modalType: modalType;
   description: string;
+  withdrawedNotes?: string;
   customOnClose?: () => void;
   onConfirm?: () => void;
 };
@@ -36,6 +37,7 @@ const Modal = (props: ModalProps): JSX.Element => {
         <div className="modal__content-container" onClick={(e) => e.stopPropagation()}>
           <FontAwesomeIcon className="modal__icon" icon={modalIconMapper[props.modalType]} />
           <h3 className="modal__description">{props.description}</h3>
+          {props.withdrawedNotes && <p className="modal__description--withdrawed-notes">{props.withdrawedNotes}</p>}
           <div className="modal__button-container">
             <button className="button modal__button-close" onClick={onClose}>Close</button>
             {props.modalType === modalType.warning && 

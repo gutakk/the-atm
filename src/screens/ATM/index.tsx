@@ -14,6 +14,8 @@ const ATM = (): JSX.Element => {
     setWarningMessage,
     successMessage,
     setSuccessMessage,
+    withdrawedNotes,
+    setWithdrawedNotes,
     onWithdrawClick,
     withdraw,
   } = WithdrawHandler(currentBalance);
@@ -28,7 +30,8 @@ const ATM = (): JSX.Element => {
             isOpen={true}
             description={successMessage}
             modalType={modalType.success}
-            customOnClose={() => setSuccessMessage("")}
+            withdrawedNotes={withdrawedNotes}
+            customOnClose={() => { setSuccessMessage(''); setWithdrawedNotes(''); }}
           />
         }
         {warningMessage &&
@@ -36,7 +39,7 @@ const ATM = (): JSX.Element => {
             isOpen={true}
             description={warningMessage}
             modalType={modalType.warning}
-            customOnClose={() => setWarningMessage("")}
+            customOnClose={() => setWarningMessage('')}
             onConfirm={() => withdraw(withdrawAmount)}
           />
         }

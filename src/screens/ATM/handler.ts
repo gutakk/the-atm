@@ -2,6 +2,7 @@ import React, { useState, Dispatch, SetStateAction } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
 import { withdrawAmountAction, availableNotesAction } from '../../reducers/atm';
+import type { Notes } from '../../reducers/atm';
 import { currentBalanceAction } from '../../reducers/user';
 import {
   getRoughlyEvenMixNotes,
@@ -16,6 +17,8 @@ type WithdrawHandler = {
   setWarningMessage: Dispatch<SetStateAction<string>>;
   successMessage: string;
   setSuccessMessage: Dispatch<SetStateAction<string>>;
+  withdrawedNotes: string;
+  setWithdrawedNotes: Dispatch<SetStateAction<string>>;
   onWithdrawClick: (withdrawAmount: number) => void;
   withdraw: (withdrawAmount: number) => void;
 };
@@ -27,6 +30,7 @@ const WithdrawHandler = (currentBalance: number): WithdrawHandler => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [warningMessage, setWarningMessage] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
+  const [withdrawedNotes, setWithdrawedNotes] = useState<string>('');
   
   const onWithdrawClick = () => {
     const amountError = validateWithdrawAmount(withdrawAmount, currentBalance);
@@ -54,9 +58,10 @@ const WithdrawHandler = (currentBalance: number): WithdrawHandler => {
       dispatch(withdrawAmountAction(0));
       return;
     }
-    dispatch(currentBalanceAction(currentBalance - withdrawAmount));
+    // dispatch(currentBalanceAction(currentBalance - withdrawAmount));
     dispatch(availableNotesAction(remainingNotes));
-    setSuccessMessage('Withdraw successfully');
+    setSuccessMessage(`Withdraw £${withdrawAmount} successfully`);
+    setWithdrawedNotes(getWithdrawedNotesMessage(noteCombinations,));
     dispatch(withdrawAmountAction(0));
   }
 
@@ -66,10 +71,26 @@ const WithdrawHandler = (currentBalance: number): WithdrawHandler => {
     setWarningMessage,
     successMessage,
     setSuccessMessage,
+    withdrawedNotes,
+    setWithdrawedNotes,
     onWithdrawClick,
     withdraw
   }
 };
 
+const getWithdrawedNotesMessage = (noteCombinations: Notes): string => {
+  const noteTypes: string[] = Object.keys(noteCombinations).sort();
+  let message: string[] = [];
+
+  for(let i = 0; i < noteTypes.length; i++) {
+    const noteType = noteTypes[i] as (keyof Notes);
+    const withdrawedNote = noteCombinations[noteType];
+    if(withdrawedNote !== 0) {
+      message.push(`£${noteType}x${noteCombinations[noteType]}`);
+    }
+  }
+
+  return message.join(', ');
+}
 
 export default WithdrawHandler;
