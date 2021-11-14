@@ -74,7 +74,7 @@ describe('ATM page', () => {
   context('given withdraw amount overdrawn', () => {
     const withdrawAmount = 250;
 
-    it('display warning modal and continue to display withdraw successfully modal', () => {
+    it('display warning modal and comfirm to display withdraw successfully modal', () => {
       cy.intercept('POST', '**/api/pin', (req) => {
         req.reply({
           statusCode: 200,
@@ -92,7 +92,7 @@ describe('ATM page', () => {
       cy.findByTestId('modal').should('be.visible');
       cy.findByTestId('modal').contains('Be careful! You are trying to overdrawn the balance');
 
-      cy.findByTestId('modalContinueButton').click();
+      cy.findByTestId('modalConfirmButton').click();
 
       cy.findByTestId('modal').should('be.visible');
       cy.findByTestId('modal').contains(`Withdraw £${withdrawAmount} successfully`);
@@ -127,7 +127,7 @@ describe('ATM page', () => {
   
 
   context('given withdraw amount overdrawn and withdraw with not enough notes', () => {
-    it('display warning modal and continue to display no notes error message', () => {
+    it('display warning modal and confirm to display no notes error message', () => {
       const withdrawAmountFirstRound = 250;
       const withdrawAmountSecondRound = 35;
 
@@ -148,7 +148,7 @@ describe('ATM page', () => {
       cy.findByTestId('modal').should('be.visible');
       cy.findByTestId('modal').contains('Be careful! You are trying to overdrawn the balance');
 
-      cy.findByTestId('modalContinueButton').click();
+      cy.findByTestId('modalConfirmButton').click();
 
       cy.findByTestId('modal').should('be.visible');
       cy.findByTestId('modal').contains(`Withdraw £${withdrawAmountFirstRound} successfully`);
@@ -160,7 +160,7 @@ describe('ATM page', () => {
       cy.findByTestId('modal').should('be.visible');
       cy.findByTestId('modal').contains('Be careful! You are trying to overdrawn the balance');
 
-      cy.findByTestId('modalContinueButton').click();
+      cy.findByTestId('modalConfirmButton').click();
 
       cy.findByTestId('alert').should('be.visible');
       cy.findByTestId('alert').contains(`Sorry, we do not have enough notes to withdraw £${withdrawAmountSecondRound}`);

@@ -3,7 +3,7 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
 import { withdrawAmountAction } from '../../reducers/atm';
 import WithdrawForm from './WithdrawForm';
-import WithdrawHandler from './handler';
+import useATM from './hook';
 import Alert from '../../components/Alert';
 import Modal, { modalType } from '../../components/Modal';
 
@@ -21,7 +21,7 @@ const ATM = (): JSX.Element => {
     setWithdrewNotes,
     onWithdrawClick,
     withdraw,
-  } = WithdrawHandler(currentBalance);
+  } = useATM(currentBalance);
 
   return (
     <div className="atm-screen page-bg">

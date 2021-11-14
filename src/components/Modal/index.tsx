@@ -12,6 +12,11 @@ export enum modalType {
   success = 'success',
 };
 
+export enum modalButtonType {
+  close = 'close',
+  confirm = 'confirm',
+}
+
 type ModalProps = {
   isOpen: Boolean;
   modalType: modalType;
@@ -39,9 +44,9 @@ const Modal = (props: ModalProps): JSX.Element => {
           <h3 className="modal__description">{props.description}</h3>
           {props.withdrewNotes && <p className="modal__description--withdrew-notes">{props.withdrewNotes}</p>}
           <div className="modal__button-container">
-            <button className="button modal__button-close" data-test-id="modalCloseButton" onClick={onClose}>Close</button>
+            <button className={`button modal__button-${modalButtonType.close}`} data-test-id="modalCloseButton" onClick={onClose}>Close</button>
             {props.modalType === modalType.warning && 
-              <button className="button modal__button-continue" data-test-id="modalContinueButton" onClick={props.onConfirm}>Continue</button>
+              <button className={`button modal__button-${modalButtonType.confirm}`} data-test-id="modalConfirmButton" onClick={props.onConfirm}>Confirm</button>
             }
           </div>
         </div>

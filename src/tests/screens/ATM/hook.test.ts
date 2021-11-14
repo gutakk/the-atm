@@ -1,4 +1,4 @@
-import { getWithdrewNotesMessage } from '../../../screens/ATM/handler';
+import { getWithdrewNotesMessage } from '../../../screens/ATM/hook';
 import { Notes } from '../../../reducers/atm';
 
 describe('ATM screen handler', () => {

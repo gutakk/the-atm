@@ -11,7 +11,7 @@ import {
 } from '../../services/withdraw';
 
 
-type WithdrawHandler = {
+type useATM = {
   errorMessage: string;
   warningMessage: string;
   setWarningMessage: Dispatch<SetStateAction<string>>;
@@ -23,7 +23,7 @@ type WithdrawHandler = {
   withdraw: (withdrawAmount: number) => void;
 };
 
-const WithdrawHandler = (currentBalance: number): WithdrawHandler => {
+const useATM = (currentBalance: number): useATM => {
   const dispatch = useAppDispatch();
   const { availableNotes, withdrawAmount } = useAppSelector((state) => state.atm);
 
@@ -65,7 +65,11 @@ const WithdrawHandler = (currentBalance: number): WithdrawHandler => {
     setSuccessMessage(`Withdraw £${withdrawAmount} successfully`);
     setWithdrewNotes(getWithdrewNotesMessage(noteCombinations,));
     dispatch(withdrawAmountAction(0));
-  }
+  };
+
+  // const onModalClick = (modalType, buttonType): => {
+    
+  // };
 
   return {
     errorMessage,
@@ -94,4 +98,4 @@ export const getWithdrewNotesMessage = (noteCombinations: Notes): string => {
   return message.join(', ');
 }
 
-export default WithdrawHandler;
+export default useATM;
