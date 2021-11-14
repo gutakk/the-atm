@@ -2,10 +2,10 @@ import React from 'react';
 
 import Alert from '../../components/Alert';
 import PinInput from './PinForm';
-import LoginHandler from './handler';
+import useLogin from './hook';
 
 const Login = (): JSX.Element => {
-  const { isValidatingPin, hasError, verifyPinAndStoreBalance } = LoginHandler();
+  const { isValidatingPin, hasError, verifyPinAndStoreBalance } = useLogin();
 
   return (
     <div className="login-screen page-bg">

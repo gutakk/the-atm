@@ -7,13 +7,13 @@ import { availableNotesAction, initialState } from '../../reducers/atm';
 import { currentBalanceAction, isLoggedinAction } from '../../reducers/user';
 
 
-type LoginHandler = {
+type useLogin = {
   isValidatingPin: boolean,
   hasError: boolean,
   verifyPinAndStoreBalance: (pin: string) => void
 };
 
-const LoginHandler = (): LoginHandler => {
+const useLogin = (): useLogin => {
   const history: RouteComponentProps['history'] = useHistory();
   const dispatch = useAppDispatch();
 
@@ -44,4 +44,4 @@ const LoginHandler = (): LoginHandler => {
   }
 };
 
-export default LoginHandler;
+export default useLogin;
