@@ -173,46 +173,37 @@ describe('withdraw service', () => {
     });
   });
 
-  describe('#isAtmRunOutOfNote', () => {
-    describe('given empty remaining notes', () => {
-      it('returns true', () => {
-        const remainingNotes: Notes = { '5': 0, '10': 0, '20': 0};
+  describe('#isAtmHasEnoughtAmount', () => {
+    const noteTypes = ['20', '10', '5'];
+    const availableNotes: Notes = { '5': 2, '10': 2, '20': 1 }; // total atm amount = 50
 
-        const result = withdraw.isAtmRunOutOfNote(remainingNotes);
+    describe('given withdraw amount lower than atm amount', () => {
+      it('returns true', () => {
+        const withdrawAmount: number = 40;
+
+        const result = withdraw.isAtmHasEnoughtAmount(availableNotes, noteTypes, withdrawAmount);
 
         expect(result).toBeTruthy();
       });
     });
 
-    describe('given all notes are negative', () => {
+    describe('given withdraw amount equal atm amount', () => {
       it('returns true', () => {
-        const remainingNotes: Notes = { '5': -1, '10': -1, '20': -1};
+        const withdrawAmount: number = 50;
 
-        const result = withdraw.isAtmRunOutOfNote(remainingNotes);
+        const result = withdraw.isAtmHasEnoughtAmount(availableNotes, noteTypes, withdrawAmount);
 
         expect(result).toBeTruthy();
       });
     });
 
-    describe('given non-empty remaining notes', () => {
-      describe('given all notes are not empty', () => {
-        it('returns false', () => {
-          const remainingNotes: Notes = { '5': 1, '10': 1, '20': 1};
-  
-          const result = withdraw.isAtmRunOutOfNote(remainingNotes);
-  
-          expect(result).toBeFalsy();
-        });
-      });
+    describe('given withdraw amount more than atm amount', () => {
+      it('returns false', () => {
+        const withdrawAmount: number = 60;
 
-      describe('given some notes are not empty', () => {
-        it('returns false', () => {
-          const remainingNotes: Notes = { '5': 0, '10': 1, '20': 0};
-  
-          const result = withdraw.isAtmRunOutOfNote(remainingNotes);
-  
-          expect(result).toBeFalsy();
-        });
+        const result = withdraw.isAtmHasEnoughtAmount(availableNotes, noteTypes, withdrawAmount);
+
+        expect(result).toBeFalsy();
       });
     });
   });

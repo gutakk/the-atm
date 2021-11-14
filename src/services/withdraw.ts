@@ -56,6 +56,12 @@ export const getRoughlyEvenMixNotes = (availableNotes: Notes, withdrawAmount: nu
   let noteCombinations: Notes = { '5': 0, '10': 0, '20': 0 };
   let remainingNotes = { ...availableNotes};
   let tempWithdrawAmount = withdrawAmount;
+
+  if(!isAtmHasEnoughtAmount(remainingNotes, noteTypes, withdrawAmount)) return {
+    noteCombinations,
+    remainingNotes,
+    getNoteError: new WithdrawError(`Sorry, we do not have enough notes to withdraw £${withdrawAmount}`),
+  };
   
   let i = 0;
   let unableToGetNoteCount = 0;
@@ -65,17 +71,22 @@ export const getRoughlyEvenMixNotes = (availableNotes: Notes, withdrawAmount: nu
       remainingNotes,
       getNoteError: new WithdrawError(`Sorry, we do not have enough notes to withdraw £${withdrawAmount}`),
     };
+    
     if(i > 2) { i = 0; unableToGetNoteCount = 0 };
     if(tempWithdrawAmount <= 0) break;
-    if(isAtmRunOutOfNote(remainingNotes)) return {
-      noteCombinations,
-      remainingNotes,
-      getNoteError: new WithdrawError(`Sorry, we do not have enough notes to withdraw £${withdrawAmount}`),
-    };
 
     const noteType = noteTypes[i] as (keyof Notes);
     const noteValue = parseInt(noteType)
     
+    if(tempWithdrawAmount === noteValue && remainingNotes[noteType] === 0 && noteCombinations[noteType] > 0) {
+      noteCombinations[noteType] -= 1;
+      remainingNotes[noteType] += 1;
+      tempWithdrawAmount += noteValue;
+      
+      i++;
+      continue;
+    }
+
     if(noteValue > tempWithdrawAmount || remainingNotes[noteType] <= 0) {
       unableToGetNoteCount++;
       i++;
@@ -91,6 +102,15 @@ export const getRoughlyEvenMixNotes = (availableNotes: Notes, withdrawAmount: nu
   return { noteCombinations, remainingNotes, getNoteError: null };
 };
 
-export const isAtmRunOutOfNote = (remainingNotes: Notes): boolean => {
-  return Object.values(remainingNotes).every(value => value <= 0);
+export const isAtmHasEnoughtAmount = (availableNotes: Notes, noteTypes: string[], withdrawAmount: number): boolean => {
+  let totalAtmAmount = 0;
+
+  for(let i = 0; i < noteTypes.length; i++) {
+    const noteType = noteTypes[i] as (keyof Notes);
+    const noteValue = parseInt(noteType)
+    totalAtmAmount += availableNotes[noteType] * noteValue;    
+  }
+
+  if(totalAtmAmount >= withdrawAmount) return true;
+  return false;
 };
