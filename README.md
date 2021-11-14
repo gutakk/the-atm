@@ -12,7 +12,7 @@
 * [Github Actions](https://github.com/gutakk/the-atm/actions) for CI/CD purpose
 
 ## Prerequisite
-* [NodeJS](https://nodejs.org/en/download/package-manager/)
+* [NodeJS version 16 or above](https://nodejs.org/en/download/package-manager/)
 
 ## Usage
 ### Start development server steps
