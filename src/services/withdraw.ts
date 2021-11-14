@@ -58,14 +58,14 @@ export const getRoughlyEvenMixNotes = (availableNotes: Notes, withdrawAmount: nu
   let tempWithdrawAmount = withdrawAmount;
   
   let i = 0;
-  let notAbleToGetNoteCount = 0;
+  let unableToGetNoteCount = 0;
   while(true) {
-    if(notAbleToGetNoteCount >= 3) return {
+    if(unableToGetNoteCount >= 3) return {
       noteCombinations,
       remainingNotes,
       getNoteError: new WithdrawError(`Sorry, we do not have enough notes to withdraw £${withdrawAmount}`),
     };
-    if(i > 2) { i = 0; notAbleToGetNoteCount = 0 };
+    if(i > 2) { i = 0; unableToGetNoteCount = 0 };
     if(tempWithdrawAmount <= 0) break;
     if(isAtmRunOutOfNote(remainingNotes)) return {
       noteCombinations,
@@ -77,7 +77,7 @@ export const getRoughlyEvenMixNotes = (availableNotes: Notes, withdrawAmount: nu
     const noteValue = parseInt(noteType)
     
     if(noteValue > tempWithdrawAmount || remainingNotes[noteType] <= 0) {
-      notAbleToGetNoteCount++;
+      unableToGetNoteCount++;
       i++;
       continue; 
     }
