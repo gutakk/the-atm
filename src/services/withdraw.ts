@@ -56,6 +56,7 @@ export const getRoughlyEvenMixNotes = (availableNotes: Notes, withdrawAmount: nu
   let noteCombinations: Notes = { '5': 0, '10': 0, '20': 0 };
   let remainingNotes = { ...availableNotes};
   let tempWithdrawAmount = withdrawAmount;
+  let pickAvailability: { [key: string]: boolean} = { '5': true, '10': true, '20': true };
 
   if(!isAtmHasEnoughtAmount(remainingNotes, noteTypes, withdrawAmount)) return {
     noteCombinations,
@@ -65,13 +66,14 @@ export const getRoughlyEvenMixNotes = (availableNotes: Notes, withdrawAmount: nu
   
   let i = 0;
   let unableToGetNoteCount = 0;
+  
   while(true) {
     if(unableToGetNoteCount >= 3) return {
       noteCombinations,
       remainingNotes,
       getNoteError: new WithdrawError(`Sorry, we do not have enough notes to withdraw £${withdrawAmount}`),
     };
-    
+
     if(i > 2) { i = 0; unableToGetNoteCount = 0 };
     if(tempWithdrawAmount <= 0) break;
 
@@ -83,6 +85,7 @@ export const getRoughlyEvenMixNotes = (availableNotes: Notes, withdrawAmount: nu
       remainingNotes[noteType] += 1;
       tempWithdrawAmount += noteValue;
       
+      pickAvailability[noteType] = false;
       i++;
       continue;
     }
@@ -93,9 +96,12 @@ export const getRoughlyEvenMixNotes = (availableNotes: Notes, withdrawAmount: nu
       continue; 
     }
 
-    tempWithdrawAmount -= noteValue;
-    noteCombinations[noteType] += 1;
-    remainingNotes[noteType] -= 1
+    if(pickAvailability[noteType]) {
+      tempWithdrawAmount -= noteValue;
+      noteCombinations[noteType] += 1;
+      remainingNotes[noteType] -= 1
+    }
+
     i++;
   };
 
