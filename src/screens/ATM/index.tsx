@@ -12,7 +12,7 @@ const ATM = (): JSX.Element => {
     errorMessage,
     warningMessage,
     successMessage,
-    withdrewNotes,
+    withdrewNotesMessage,
     onWithdrawClick,
     onConfirmWarningModal,
     onCloseWarningModal,
@@ -32,7 +32,7 @@ const ATM = (): JSX.Element => {
             isOpen={true}
             description={successMessage}
             modalType={modalType.success}
-            withdrewNotes={withdrewNotes}
+            withdrewNotesMessage={withdrewNotesMessage}
             customOnClose={onCloseSuccessModal}
           />
         }
