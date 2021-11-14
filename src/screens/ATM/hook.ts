@@ -1,5 +1,6 @@
-import { useState, Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 
+import { modalButtonType } from '../../components/Modal';
 import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
 import { withdrawAmountAction, availableNotesAction } from '../../reducers/atm';
 import type { Notes } from '../../reducers/atm';
@@ -14,13 +15,12 @@ import {
 type useATM = {
   errorMessage: string;
   warningMessage: string;
-  setWarningMessage: Dispatch<SetStateAction<string>>;
   successMessage: string;
-  setSuccessMessage: Dispatch<SetStateAction<string>>;
   withdrewNotes: string;
-  setWithdrewNotes: Dispatch<SetStateAction<string>>;
   onWithdrawClick: (withdrawAmount: number) => void;
-  withdraw: (withdrawAmount: number) => void;
+  onConfirmWarningModal: () => void;
+  onCloseWarningModal: () => void;
+  onCloseSuccessModal: () => void;
 };
 
 const useATM = (currentBalance: number): useATM => {
@@ -67,20 +67,29 @@ const useATM = (currentBalance: number): useATM => {
     dispatch(withdrawAmountAction(0));
   };
 
-  // const onModalClick = (modalType, buttonType): => {
-    
-  // };
+  const onConfirmWarningModal = (): void => {
+    withdraw(withdrawAmount);
+  };
+
+  const onCloseWarningModal = (): void => {
+    setWarningMessage('');
+    dispatch(withdrawAmountAction(0));
+  };
+
+  const onCloseSuccessModal = (): void => {
+    setSuccessMessage('');
+    setWithdrewNotes('');
+  };
 
   return {
     errorMessage,
     warningMessage,
-    setWarningMessage,
     successMessage,
-    setSuccessMessage,
     withdrewNotes,
-    setWithdrewNotes,
     onWithdrawClick,
-    withdraw
+    onConfirmWarningModal,
+    onCloseWarningModal,
+    onCloseSuccessModal,
   }
 };
 

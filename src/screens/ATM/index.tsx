@@ -1,26 +1,22 @@
 import React from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../hooks/useApp';
-import { withdrawAmountAction } from '../../reducers/atm';
+import { useAppSelector } from '../../hooks/useApp';
 import WithdrawForm from './WithdrawForm';
 import useATM from './hook';
 import Alert from '../../components/Alert';
 import Modal, { modalType } from '../../components/Modal';
 
 const ATM = (): JSX.Element => {
-  const dispatch = useAppDispatch();
   const { currentBalance } = useAppSelector((state) => state.user);
-  const { withdrawAmount } = useAppSelector((state) => state.atm);
   const { 
     errorMessage,
     warningMessage,
-    setWarningMessage,
     successMessage,
-    setSuccessMessage,
     withdrewNotes,
-    setWithdrewNotes,
     onWithdrawClick,
-    withdraw,
+    onConfirmWarningModal,
+    onCloseWarningModal,
+    onCloseSuccessModal
   } = useATM(currentBalance);
 
   return (
@@ -37,7 +33,7 @@ const ATM = (): JSX.Element => {
             description={successMessage}
             modalType={modalType.success}
             withdrewNotes={withdrewNotes}
-            customOnClose={() => { setSuccessMessage(''); setWithdrewNotes(''); }}
+            customOnClose={onCloseSuccessModal}
           />
         }
         {warningMessage &&
@@ -45,8 +41,8 @@ const ATM = (): JSX.Element => {
             isOpen={true}
             description={warningMessage}
             modalType={modalType.warning}
-            customOnClose={() => { setWarningMessage(''); dispatch(withdrawAmountAction(0)) }}
-            onConfirm={() => withdraw(withdrawAmount)}
+            customOnClose={onCloseWarningModal}
+            onConfirm={onConfirmWarningModal}
           />
         }
         <WithdrawForm onWithdrawClick={onWithdrawClick} />
